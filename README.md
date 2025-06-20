@@ -1,40 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Climate-Adaptive Architecture Tool for New Orleans
 
-## Getting Started
+This prototype evaluates how a building design will perform against projected flood risk in New Orleans through 2055. Architects can adjust foundation type, elevation, materials, and mitigation features, then receive a quantitative resilience score, the last safe year (“cutoff year”), and AI‑generated recommendations.
 
-First, run the development server:
+---
+
+## Prerequisites
+
+* Node.js 18 LTS (or later)
+* npm 9 (comes with Node 18) or Yarn / pnpm
+* An OpenAI API key for GPT‑4 access
+
+---
+
+## Local Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# clone repository
+git clone <repo-url>
+cd flood-resilience-tool
+
+# install dependencies
+npm install        # or: yarn install, pnpm install
+
+# configure environment variables
+cp .env.local.example .env.local
+# then edit .env.local and add your key:
+# OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXX
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running the Development Server
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev        # or: yarn dev
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Open `http://localhost:3000` in your browser and run a simulation.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+`OPENAI_API_KEY` is required for the language‑model recommendation step.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+# .env.local
+OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXX
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Folder Structure (truncated)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+```
+domain/           data tables for scoring
+services/         simulation, scoring, GPT prompt logic
+components/       React UI
+pages/            Next.js routes (main + API)
+```
+
+---
+
+## Brief Write‑up: Modeling Approach
+
+1. **Scoring system**  
+   Foundation, elevation, material, and mitigation features are mapped to weighted points (total 100). Higher elevation and stronger materials yield higher scores.
+
+2. **Flood simulation**  
+   Combines neighborhood Base Flood Elevation (BFE) with a worst‑case sea‑level rise scenario (1.0‑HIGH). Finds the first year the combined flood line surpasses building elevation.
+
+3. **Language‑model feedback**  
+   A GPT‑4 prompt contains user input, score breakdown, cost tables, and flood context. The model returns a single paragraph recommendation and a cost‑benefit paragraph.
+
+---
+
+## What I Would Build Next
+
+* Replace mock sea‑level tables with NOAA projections and dynamic BFE lookup.
+* Calibrate scoring weights with FEMA engineering data.
+* Add map overlays for neighborhoods and live elevation sliders.
+* Allow multiple design revisions and PDF export of reports.
+* Factor lifecycle maintenance cost into the cost‑benefit analysis.
+
+---
+
+## License
+
+Prototype code supplied for interview evaluation only. Not licensed for production use.
