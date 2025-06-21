@@ -99,12 +99,12 @@ This allows architects to quickly assess what to improve and why.
 ### What I'd Build Next
 
 1. **Real-world data integration**
-   - Use actual historical and projected sea level data from NOAA (already partially integrated)
-   - Expand to include FEMA flood zones, BFE maps, and building permit data by address
+   - Use actual historical and projected sea level data from NOAA (already partially integrated).
+   - Expand to include FEMA flood zones, BFE maps, and building permit data by address.
 
 2. **Material and mitigation cost modeling**
-   - Replace mock scores with real construction costs and effectiveness data
-   - Enable regional and year-based price adjustments
+   - Replace mock scores with real construction costs and effectiveness data.
+   - Enable regional and year-based price adjustments.
 
 3. **AI/RAG-based architecture**
    - Dynamically inject only relevant data into the prompt (e.g., BFE and flood projections for the selected neighborhood).
@@ -112,9 +112,9 @@ This allows architects to quickly assess what to improve and why.
    - Transition to a modular prompt architecture with structured templates and optional function calling for data lookup.
 
 4. **Conversational input**
-   - Enable users to describe buildings in natural language (e.g., "a 2-story home with 6 ft elevation in Lakeview using concrete and flood vents")
-   - Use an NLP parser to convert input into structured parameters
+   - Enable users to describe buildings in natural language (e.g., "a 2-story home with 6 ft elevation in Lakeview using concrete and flood vents").
+   - Use an NLP parser to convert input into structured parameters.
 
 5. **Expanded parameter set**
-   - Add more granular design inputs like roof type, number of floors, basement presence, adjacent terrain, flood insurance status
-   - Support risk scenarios for wind, rainfall, and compound flooding
+   - Add more granular design inputs like roof type, number of floors, basement presence, adjacent terrain, flood insurance status.
+   - Support risk scenarios for wind, rainfall, and compound flooding.
